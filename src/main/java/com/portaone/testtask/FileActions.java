@@ -10,20 +10,20 @@ import java.util.stream.IntStream;
 public class FileActions {
     static Path path = Path.of("C:\\Users\\pisar\\IdeaProjects\\testtask\\10m.txt");
 
-    //ToDo change names
+    public static IntStream toStreamOfInt() throws IOException {
+        return Files.lines(path).mapToInt(Integer::parseInt);
+    }
+
     public static int findMax() throws IOException {
-        IntStream arrOfInt = Files.lines(path).mapToInt(Integer::parseInt);
-        return arrOfInt.max().orElseThrow(IOException::new);
+        return toStreamOfInt().max().orElseThrow(IOException::new);
     }
 
     public static int findMin() throws IOException {
-        IntStream arrOfInt = Files.lines(path).mapToInt(Integer::parseInt);
-        return arrOfInt.min().orElseThrow(IOException::new);
+        return toStreamOfInt().min().orElseThrow(IOException::new);
     }
 
     public static int median() throws IOException {
-        IntStream arrOfInt = Files.lines(path).mapToInt(Integer::parseInt);
-        int[] arr = arrOfInt.sorted().toArray();
+        int[] arr = toStreamOfInt().sorted().toArray();
         if (arr.length%2 == 1) {
             return arr[arr.length/2];
         } else {
@@ -32,12 +32,11 @@ public class FileActions {
     }
 
     public static double average() throws IOException {
-        return Files.lines(path).mapToInt(Integer::parseInt).average().orElseThrow(IOException::new);
+        return toStreamOfInt().average().orElseThrow(IOException::new);
     }
 
     public static List<Integer> increaseSequence() throws IOException {
-        IntStream arrOfInt = Files.lines(path).mapToInt(Integer::parseInt);
-        int[] arr = arrOfInt.toArray();
+        int[] arr = toStreamOfInt().toArray();
         int count = 0;
         int tempCount = 1;
         List<Integer> result = new ArrayList<>();
@@ -59,8 +58,7 @@ public class FileActions {
     }
 
     public static List<Integer> decreaseSequence() throws IOException {
-        IntStream arrOfInt = Files.lines(path).mapToInt(Integer::parseInt);
-        int[] arr = arrOfInt.toArray();
+        int[] arr = toStreamOfInt().toArray();
         int count = 0;
         int tempCount = 1;
         List<Integer> result = new ArrayList<>();
@@ -80,6 +78,4 @@ public class FileActions {
         }
         return result;
     }
-
-
 }
